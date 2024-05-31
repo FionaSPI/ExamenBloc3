@@ -13,11 +13,14 @@
 
 
 <body>
+
+    <!---------------------------------------------------- HEADER ---------------------------------------------------->
+
     <header class="bg-white">
         <?php
-        include_once __DIR__. '/templates/header.php';
-        require_once __DIR__ . "/templates/header.php"; 
-        require_once __DIR__ . "/lib/user.php";
+        include_once __DIR__ . '/templates/header.php';
+        require_once __DIR__ . '/lib/pdo.php';
+        require_once __DIR__ . '/lib/user.php';
 
         $errors = [];
 
@@ -32,29 +35,39 @@
                    // afficher une erreur
                 $errors[] = "Email ou mot de passe incorrect";
             }
-            
-
-        }
-        ?>
+        }?>
     </header>
+    <!----------------------------------------------------- MAIN ----------------------------------------------------->
+
     <main class="h-75 shadow w-75 mx-auto bg-light bg-opacity-50">
         <h1 class="pt-5 d-flex justify-content-center">Connexion</h1>
-        <form action="loginPost.php" method="POST" class="w-50 mx-auto py-5">
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Adresse email :</label>
-                <input type="email" name="email" class="form-control" rows="3" required> <br>
-            </div>
+        <!---------------------------------------- FORMULAIRE DE CONNEXION ---------------------------------------->
+        <?php
+        foreach ($errors as $error) { ?>
+        <div class="alert alert-danger" role="alert">
+            <?=$error; ?>
+        </div>
+        <?php }
+    ?>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Mot de passe :</label>
-                <input type="password" name="password" class="form-control" rows="3" required> <br>
-            </div>
-            <input class="btn btn-success" type="submit" value="Se connecter">
+        <form action="" method="POST" class="w-50 mx-auto py-5">
+        <div class="mb-3">
+            <label for="email" class="form-label">Adresse email :</label>
+            <input type="email" name="email" id="email" class="form-control" require>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe :</label>
+            <input type="password" name="password" id="password" class="form-control" require>
+        </div>
 
-        </form>
+        <input type="submit" name="loginUser" value="Connexion" class="btn btn-info text-white">
+    </form>
 
     </main>
+
+    <!---------------------------------------------------- FOOTER ---------------------------------------------------->
+
     <footer class='bg-white'>
         <?php include_once __DIR__."/templates/footer.php"?>
     </footer>
