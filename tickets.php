@@ -13,51 +13,60 @@
 
 
 <body>
+
+    <!---------------------------------------------------- HEADER ---------------------------------------------------->
+
     <header class="bg-white">
         <?php
-        include_once __DIR__. '/templates/header.php';
-        ?>
+        require_once __DIR__. '/templates/header.php';
+        require_once 'lib/offers.php';
+        require_once "lib/pdo.php";
+
+        $offers = getOffers($pdo);
+
+        $offer = [
+            'id_offer' =>'',
+            'offer_name' => '',
+            'tickets_num' => ''
+        ]?>
+
+        <img src="assets/images/headertickets.jpg" class="w-100" alt="">
+
     </header>
 
+    <!----------------------------------------------------- MAIN ----------------------------------------------------->
+
     <main class="mx-auto w-75 bg-white bg-opacity-75 p-5">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            <div class="col">
-                <div class="card">
-                    <img src="assets/images/offre1pers.png" class="card-img-top p-5 w-75 mx-auto" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Solo</h5>
-                        <p class="card-text">L'offre solo contient un seul ticket.</p>
-                        <a href="register.php" class="btn btn-success">Acheter</a>
-                    </div>
+        <h1 class="text-center mb-5">Billetterie -JO Paris 2024</h1>
+
+        <div class="w-75 mx-auto bg-white py-5">
+
+            <!------------------------------------------ SELECTION OFFRE ------------------------------------------>
+
+            <form action="cart.php" method="post">
+
+                <div class="mb-3 text-center">
+                    <label for="id_offer" class="form-label h2 mb-5">Sélectionnez une offre</label>
+                    <select name="choice" id="id_offer" class="form-select mx-auto" style="width:250px">
+
+                        <?php foreach ($offers as $offer) { ?>
+                        <option value="<?=$offer['id_offer'] ?>"><?=$offer['offer_name'] ?> :
+                            <?=$offer['tickets_num'] ?> entrée(s) </option>
+                        <?php } ?>
+                    </select>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="assets/images/offre2pers.png" class="card-img-top p-5 w-75 mx-auto" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Duo</h5>
-                        <p class="card-text">L'offre Duo comporte un lot de 2 tickets.</p>
-                        <a href="register.php" class="btn btn-success">Acheter</a>
-                    </div>
+
+                <div class="d-flex justify-content-center mt-5">
+                    <button class="btn btn-success" type="submit" name="add" >Ajouter au panier</button>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="assets/images/offre4pers.png" class="card-img-top p-5" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Familiale</h5>
-                        <p class="card-text">L'offre familiale contient un lot de 4 tickets.</p>
-                        <a href="register.php" class="btn btn-success">Acheter</a>
-                    </div>
-                </div>
-            </div>
+
+            </form>
+
+
         </div>
-
-
-
-
     </main>
 
+    <!---------------------------------------------------- FOOTER ---------------------------------------------------->
 
     <footer class='bg-white'>
         <?php include_once __DIR__."/templates/footer.php"?>

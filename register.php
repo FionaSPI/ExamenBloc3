@@ -13,13 +13,23 @@
 
 
 <body>
+    <!---------------------------------------------------- HEADER ---------------------------------------------------->
+
     <header class="bg-white">
         <?php
         include_once __DIR__. '/templates/header.php';
+        require_once __DIR__ . '/lib/pdo.php';
+        require_once __DIR__ . '/lib/user.php';
         ?>
     </header>
+
+    <!----------------------------------------------------- MAIN ----------------------------------------------------->
+
     <main class="shadow w-75 mx-auto bg-light bg-opacity-50">
         <h1 class="pt-5 d-flex justify-content-center">Insription</h1>
+
+        <!--------------------------------------- FORMULAIRE D'INSCRIPTION --------------------------------------->
+        
         <form action="registerPost.php" method="POST" class="w-50 mx-auto py-5">
             <div class="mb-3">
                 <label for="name" class="form-label">Nom :</label>
@@ -37,6 +47,11 @@
             </div>
 
             <div class="mb-3">
+                <label for="tel_num_users" class="form-label">Numéro de téléphone :</label>
+                <input type="tel" name="tel_num_users" class="form-control" rows="3" required> <br>
+            </div>
+
+            <div class="mb-3">
                 <label for="password" class="form-label">Mot de passe :</label>
                 <input type="password" name="password" class="form-control" rows="3" required> <br>
             </div>
@@ -44,6 +59,9 @@
 
         </form>
     </main>
+
+    <!---------------------------------------------------- FOOTER ---------------------------------------------------->
+
     <footer class='bg-white'>
         <?php include_once __DIR__."/templates/footer.php"?>
     </footer>

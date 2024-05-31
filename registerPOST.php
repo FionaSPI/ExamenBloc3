@@ -12,6 +12,7 @@ try{
     $nameForm = $_POST['name'];
     $surnameForm = $_POST['surname'];
     $emailForm = $_POST['email'];
+    $telForm = $_POST['tel_num_users'];
     $passwordForm = $_POST['password'];
 
     //Vérifier l’unicité de l’adresse mail
@@ -20,7 +21,7 @@ try{
     $stmt->bindParam(':email', $emailForm);
     $stmt->execute();
 
-    //Est-ce que l’utilisateur (mail) existe ?
+    //Vérifier que l'email de l’utilisateur existe
     if($stmt->rowCount() > 0){
         die("Cette adresse email est déjà utilisée");
     }
@@ -29,16 +30,16 @@ try{
     $hashedPassword = password_hash($passwordForm, PASSWORD_DEFAULT);
 
     //Insérer les données dans la base 
-    $insertQuery = "INSERT INTO users ( name, surname, email, password) VALUES (:name, :surname, :email, :password)";
+    $insertQuery = "INSERT INTO users ( name, surname, email, tel_num_users, password) VALUES (:name, :surname, :email, :tel_num_users, :password)";
     $stmt = $pdo->prepare($insertQuery);
     $stmt->bindParam(':name', $nameForm);
     $stmt->bindParam(':surname', $surnameForm);
     $stmt->bindParam(':email', $emailForm);
+    $stmt->bindParam(':tel_num_users', $telForm);
     $stmt->bindParam(':password', $hashedPassword);
     $stmt->execute();
 
-    header("Status: 301 Moved Permanently", false, 301);
-    header("Location: pay.php");
+    header("Location: tickets.php");
     exit;
 
 }
